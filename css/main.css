@@ -21,12 +21,18 @@ body, html {
   line-height: 1.3333333;
   border-radius: 6px;
 }
-
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 384px) {
     .btnstyle {
+      /*
       padding: 5px 10px;
  	font-size: 12px;
   	line-height: 1.5;
 	border-radius: 3px;
+*/
+
+    padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
     }
 }
