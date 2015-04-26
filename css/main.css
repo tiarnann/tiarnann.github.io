@@ -12,3 +12,17 @@
 .btn:focus{
 	outline: none;
 }
+.btnstyle{
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+@media screen and (max-width: 440px) {
+    .btnstyle {
+         padding: 5px 10px;
+ 	font-size: 12px;
+  	line-height: 1.5;
+	border-radius: 3px;
+    }
+}
