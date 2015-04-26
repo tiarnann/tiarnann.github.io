@@ -98,10 +98,14 @@
 </script>
 </head>
 <body>
-	<div ng-app="myModule" ng-controller="controller"  class="container">
-		<div class="page-header text-center">
-			<h2>Leaving Cert Points Calculator</h2>
+	<div ng-app="myModule" ng-controller="controller">
+		<div class="container"style="background-color:#00BBB1; color:white;padding-bottom:0px">
+			<div class="text-right" >
+				<h2 >{{totalPoints+" points"}}</h2>
+				<h5 >{{userResults.length}} subjects</h5>
+			</div>
 		</div>
+		<div class="container">
 		<br>
 		<br>
 		<br>
@@ -113,7 +117,7 @@
 				<div class="btn-group" >
 				        <label class="btn btn-default"  ng-model="subjectLevel" btn-radio="'0'">HL</label>
 				        <label class="btn btn-default"  ng-model="subjectLevel" btn-radio="'1'">OL</label>
-				        <label class="btn btn-default"  ng-model="subjectLevel" ng-disabled="disableHLMaths" btn-radio="'2'">HL Maths</label>
+				        <label class="btn btn-default"  ng-model="subjectLevel" ng-disabled="disableHLMaths" btn-radio="'2'" >HL Maths</label>
 				</div>
 				<br>
 				<br>
@@ -151,8 +155,7 @@
 			</div>
 			<div  class="col-xs-5 col-md-4">
 				<h4 ng-class="{strike: $index > 5}"ng-repeat="result in userResults track by $index">{{result.grade+" ("+ result.subjectLevel+")"+"       "+result.points}}</h4>
-				<h4>_______</h4>
-				<h4>{{totalPoints+" points"}}</h4>
+			</div>
 			</div>
 		</div>
 	</div>
