@@ -1,0 +1,14 @@
+.strike{
+	text-decoration: line-through;
+}
+.footer{
+	position: absolute;
+	border-top: 1px solid #eeeeee;
+}
+.container
+{
+	padding-bottom: 50px;
+}
+.btn:focus{
+	outline: none;
+}

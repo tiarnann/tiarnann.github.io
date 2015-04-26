@@ -1,0 +1,163 @@
+<!DOCTYPE html >
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script src="js/angular.min.js"></script>
+<script src="js/ui-bootstrap-tpls-0.12.1.min.js"></script>
+
+
+<!--Angular-->
+<script>
+	var mod=angular.module('myModule', ['ui.bootstrap']);
+	mod.controller('controller', function($scope){
+
+		//Initialising variables
+		$scope.totalPoints=0;
+		$scope.disableHLMaths=false;
+		$scope.subjectLevel=0;
+		$scope.userResults=[];
+
+		//Adds clickec result to result array
+		$scope.addResult=function(resultGrade,points){
+			if($scope.userResults.length<10){
+				var resultLevel,resultPoints,result;
+				resultPoints=points;
+				//Determining points from of result depending on the level set
+				if($scope.subjectLevel==0){
+					resultPoints+=	40;
+					resultLevel="HL";
+					resultId=0;
+				}
+				else if($scope.subjectLevel==1){
+					resultLevel="OL";
+					resultId=1;
+				}
+				else{
+					resultPoints+=	65;
+					resultLevel="HL Maths";
+					resultId=2;
+					$scope.subjectLevel=0;
+					$scope.disableHLMaths=true;
+				}
+				result={
+					grade:resultGrade,
+					subjectLevel:resultLevel,
+					points:resultPoints,
+					levelid:resultId
+				};
+
+				//Add result to result array
+				$scope.userResults.push(result);
+
+				//Sort results by descending order
+				$scope.userResults.sort(function(a,b) { return parseInt(b.points) - parseInt(a.points) } );
+
+				//Updates total points
+				 tallyPoints();
+			}
+			else{
+
+			}
+		};
+
+		//Removes last result
+		$scope.clearLastResult=function(){
+			var lastIndex=$scope.userResults.length-1;
+			if($scope.userResults[lastIndex].levelid==2){
+				$scope.disableHLMaths=false;
+			}
+			$scope.userResults.splice(lastIndex,1);
+			tallyPoints();
+		};
+
+		//Removes all results
+		$scope.clearAllResult=function(){
+			$scope.disableHLMaths=false;
+			$scope.userResults=[];
+			tallyPoints();
+		};
+
+		//Calculates total points of greatest six subjects
+		function tallyPoints(){
+			$scope.totalPoints=0;
+			for(var i=0; i<$scope.userResults.length && i <6;i++)
+			{
+				$scope.totalPoints+=$scope.userResults[i].points;		
+			}
+		};
+	});
+</script>
+</head>
+<body>
+	<div ng-app="myModule" ng-controller="controller"  class="container">
+		<div class="page-header text-center">
+			<h2>LC Points Calculator.</h2>
+			<p class="lead">Simple, easy-to-use points calculator</p>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-3">
+			</div>
+			<div class="col-xs-7 col-md-4">
+				<div class="btn-group" >
+				        <label class="btn btn-default btn-md" ng-model="subjectLevel" btn-radio="'0'">HL</label>
+				        <label class="btn btn-default btn-md" ng-model="subjectLevel" btn-radio="'1'">OL</label>
+				        <label class="btn btn-default btn-md" ng-model="subjectLevel" ng-disabled="disableHLMaths" btn-radio="'2'">HL Maths</label>
+				</div>
+				<br>
+				<br>
+				<div class="btn-group" >
+					<button type="button" class="btn btn-default btn-md" ng-click="addResult('A1',60)  ">A1</button>
+					<button type="button" class="btn btn-default btn-md" ng-click="addResult('A2',50) ">A2</button>
+				</div>
+				<br>
+				<br>
+				<div class="btn-group">
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('B1',45)  ">B1</button>
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('B2',40)  ">B2</button>
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('B3',40)  ">B3</button>
+				</div>
+				<br>
+				<br>
+				<div class="btn-group">
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('C1',30)  ">C1</button>
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('C2',25) ">C2</button>
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('C3',20)  ">C3</button>
+				</div>
+				<br>
+				<br>
+				<div class="btn-group">
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('D1',15) ">D1</button>
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('D2',10) ">D2</button>
+					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('D3',5) ">D3</button>
+				</div>
+				<br>
+				<br>
+				<div class="btn-group">
+				<button type="button" class="btn btn-default btn-md" ng-click="clearLastResult()">Clear Last</button>
+				<button type="button" class="btn btn-default btn-md" ng-click="clearAllResult()">Clear All</button>
+				</div>
+			</div>
+			<div  class="col-xs-5 col-md-4">
+				<h4 ng-class="{strike: $index > 5}"ng-repeat="result in userResults track by $index">{{result.grade+" ("+ result.subjectLevel+")"+"       "+result.points}}</h4>
+				<h4>_______</h4>
+				<h4>{{totalPoints+" points"}}</h4>
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<footer class="footer">
+			<div class="container">
+				<p class="text-muted">Created with the help of <a href="angularjs.org" target="_blank"><i>Anglular.js</i></a> and some <a href="http://getbootstrap.com/"  target="_blank"><i>Bootstrap</i></a> &#169;2015 Tíarnán McGrath</p>
+			</div>
+		</footer>
+	</div>
+
+</body>
+</html>
