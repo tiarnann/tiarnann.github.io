@@ -18,12 +18,12 @@
 		//Initialising variables
 		$scope.totalPoints=0;
 		$scope.disableHLMaths=false;
-		$scope.subjectLevel=0;
+		$scope.subjectLevel=null;
 		$scope.userResults=[];
 
 		//Adds clickec result to result array
 		$scope.addResult=function(resultGrade,points){
-			if($scope.userResults.length<10){
+			if($scope.userResults.length<10 && $scope.subjectLevel!=null){
 				var resultLevel,resultPoints,result;
 				resultPoints=points;
 				//Determining points from of result depending on the level set
@@ -94,48 +94,53 @@
 </head>
 <body>
 	<div ng-app="myModule" ng-controller="controller"  class="container">
+		<div class="page-header text-center">
+			<h2>Leaving Cert Points Calculator</h2>
+		</div>
+		<br>
+		<br>
 		<br>
 		<div class="row">
 			<div class="col-md-3">
 			</div>
 			<div class="col-xs-7 col-md-4">
 				<div class="btn-group" >
-				        <label class="btn btn-default btn-md" ng-model="subjectLevel" btn-radio="'0'">HL</label>
-				        <label class="btn btn-default btn-md" ng-model="subjectLevel" btn-radio="'1'">OL</label>
-				        <label class="btn btn-default btn-md" ng-model="subjectLevel" ng-disabled="disableHLMaths" btn-radio="'2'">HL Maths</label>
+				        <label class="btn btn-default" ng-model="subjectLevel" btn-radio="'0'">HL</label>
+				        <label class="btn btn-default" ng-model="subjectLevel" btn-radio="'1'">OL</label>
+				        <label class="btn btn-default" ng-model="subjectLevel" ng-disabled="disableHLMaths" btn-radio="'2'">HL Maths</label>
 				</div>
 				<br>
 				<br>
 				<div class="btn-group" >
-					<button type="button" class="btn btn-default btn-md" ng-click="addResult('A1',60)  ">A1</button>
-					<button type="button" class="btn btn-default btn-md" ng-click="addResult('A2',50) ">A2</button>
+					<button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('A1',60) ">A1</button>
+					<button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('A2',50) ">A2</button>
 				</div>
 				<br>
 				<br>
 				<div class="btn-group">
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('B1',45)  ">B1</button>
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('B2',40)  ">B2</button>
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('B3',40)  ">B3</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('B1',45)  ">B1</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('B2',40)  ">B2</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('B3',40)  ">B3</button>
 				</div>
 				<br>
 				<br>
 				<div class="btn-group">
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('C1',30)  ">C1</button>
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('C2',25) ">C2</button>
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('C3',20)  ">C3</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('C1',30)  ">C1</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('C2',25) ">C2</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('C3',20)  ">C3</button>
 				</div>
 				<br>
 				<br>
 				<div class="btn-group">
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('D1',15) ">D1</button>
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('D2',10) ">D2</button>
-					  <button type="button" class="btn btn-default btn-md" ng-click="addResult('D3',5) ">D3</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('D1',15) ">D1</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('D2',10) ">D2</button>
+					  <button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="addResult('D3',5) ">D3</button>
 				</div>
 				<br>
 				<br>
 				<div class="btn-group">
-				<button type="button" class="btn btn-default btn-md" ng-click="clearLastResult()">Clear Last</button>
-				<button type="button" class="btn btn-default btn-md" ng-click="clearAllResult()">Clear All</button>
+				<button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="clearLastResult()">Clear Last</button>
+				<button type="button" class="btn btn-default" ng-disabled="subjectLevel==null" ng-click="clearAllResult()">Clear All</button>
 				</div>
 			</div>
 			<div  class="col-xs-5 col-md-4">
